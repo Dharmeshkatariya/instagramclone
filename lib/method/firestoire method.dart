@@ -14,12 +14,11 @@ class FireStoreMethod {
       required String uid,
       required String username,
       required String profImage,
-      required String postUrl}) async {
+      }) async {
     String postId = Uuid().v1();
     String res = "some error";
     try {
-      String photoUrl =
-          StorageMethod().uploadImageToStorage("posts", true, imagepath);
+      String photoUrl =await StorageMethod().uploadImageToStorage("posts", true, imagepath);
       Post post = Post(
           description: description,
           uid: uid,
@@ -27,16 +26,16 @@ class FireStoreMethod {
           likes: [],
           postId: postId,
           datePublished: DateTime.now(),
-          postUrl: postUrl,
+          postUrl: photoUrl,
           profImage: profImage);
 
       fireStore.collection("posts").doc(postId).set(post.toJson());
+
       res = "succes";
     } catch (e) {
       res = e.toString();
       print(e);
-
     }
-    return res;
   }
 }
+// snapshot.data!.docs[index]["uid"] == "YlZHj3x69UYf1MS8w9aQZvLncMq2" Conttaine() : Container ()

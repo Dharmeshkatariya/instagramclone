@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Common {
+
+
+
   static Widget button({
     bool loading = false ,
     Color? color,
@@ -50,5 +54,20 @@ class Common {
       keyboardType: TextInputType.emailAddress,
     );
   }
+// datetime.now  timestamp method
+ static String readTimestamp(int timestamp) {
+    var now =  DateTime.now();
+    var format = TimeOfDayFormat.HH_dot_mm;
+    var date =  DateTime.fromMicrosecondsSinceEpoch(timestamp);
+    var diff = date.difference(now);
+    var time = '';
 
+    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+      time = format.toString(); // Doesn't get called when it should be
+    } else {
+      time = diff.inDays.toString() + 'DAYS AGO'; // Gets call and it's wrong date
+    }
+
+    return time;
+  }
 }

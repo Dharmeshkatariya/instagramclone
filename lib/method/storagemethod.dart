@@ -10,7 +10,7 @@ class StorageMethod{
 
   //image add in firestoregae
 
-uploadImageToStorage(String childName, bool isPost,String filepath)async{
+Future<String> uploadImageToStorage(String childName, bool isPost,String filepath)async{
    String storeImage = "";
   Reference ref = firebaseStorage.ref().child(childName).child(auth.currentUser!.uid);
 
@@ -19,9 +19,10 @@ uploadImageToStorage(String childName, bool isPost,String filepath)async{
     ref.child(id);
   }
   UploadTask uploadTask = ref.putFile(File(filepath));
-   await Future.value(uploadTask);
-   storeImage = await ref.getDownloadURL();
-  return storeImage;
+    Future.value(uploadTask);
+    storeImage = await ref.getDownloadURL();
+    print(storeImage);
+    return storeImage;
 }
 
 }

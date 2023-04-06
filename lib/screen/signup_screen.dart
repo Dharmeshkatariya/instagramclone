@@ -108,6 +108,7 @@ class SignUpScreen extends GetView<SignUpController> {
                             password: controller.passController.text,
                             username: controller.nameController.text,
                             bio: controller.bioController.text);
+
                       }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

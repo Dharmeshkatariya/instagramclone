@@ -52,10 +52,10 @@ class FeedScreen extends GetView<FeedScreenController> {
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
             child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 16,
                   backgroundImage: NetworkImage(
-                    "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71a37QykgSL._SL1280_.jpg",
+                    "${snapshot.data!.docs[index]["postUrl"]}",
                   ),
                 ),
                 Expanded(
@@ -69,7 +69,9 @@ class FeedScreen extends GetView<FeedScreenController> {
                 )),
                 IconButton(
                     onPressed: () {
-                      Get.defaultDialog(middleText: "delete");
+                      Get.defaultDialog(middleText: "delete",onConfirm: (){
+
+                      });
                     },
                     icon: const Icon(Icons.more_vert))
               ],
@@ -79,7 +81,7 @@ class FeedScreen extends GetView<FeedScreenController> {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Image.network(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRprsb0HQcOmZXOdYS1jDITIPb2f-fLKHQzjYIE75J_cg&s",
+              "${snapshot.data!.docs[index]["postUrl"]}",
               fit: BoxFit.cover,
             ),
           ),
@@ -114,39 +116,42 @@ class FeedScreen extends GetView<FeedScreenController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("21212likes"),
-                  Container(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: RichText(
-                      text: const TextSpan(
-                        style: TextStyle(color: primaryColor),
-                        children: [
-                          TextSpan(
-                            text: "username",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextSpan(
-                            text: "hey description",
-                          ),
-                        ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${snapshot.data!.docs[index]["username"]}",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor),
                       ),
-                    ),
-                  ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        "${snapshot.data!.docs[index]["description"]}",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor),
+                      ),
+                    ],
+                  )
                 ]),
           ),
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(
-              "${snapshot.data!.docs[index]["bio"]}",
+              "${snapshot.data!.docs[index]["description"]}",
               style: const TextStyle(color: secondaryColor),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(2.0),
+          Padding(
+            padding: const EdgeInsets.all(2.0),
             child: Text(
-              "22 dec 2022",
-              style: TextStyle(color: secondaryColor),
+              "${snapshot.data!.docs[index]["description"]}",
+              style: const TextStyle(color: secondaryColor),
             ),
           ),
         ],
